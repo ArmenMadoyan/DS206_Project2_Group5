@@ -78,7 +78,7 @@ Logs are appended to `logs/logs_dimensional_data_pipeline.txt`, each line tagged
 ## Tests
 
 ```bash
-pytest -q tests/
+pytest tests/test_utils.py
 ```
 
 **32 tests**, runtime ~0.4s. The filesystem and `pyodbc` are mocked — no live SQL Server connection required. Coverage: 4 tests per utility function in `utils.py`.
