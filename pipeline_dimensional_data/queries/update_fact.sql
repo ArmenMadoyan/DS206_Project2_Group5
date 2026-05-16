@@ -20,6 +20,12 @@ USING (
         dc.customer_sk,
         de.employee_sk,
         dp.product_sk,
+        ds.shipper_sk,
+        dt.territory_sk,
+
+        CAST(o.OrderDate    AS DATE) AS OrderDate,
+        CAST(o.RequiredDate AS DATE) AS RequiredDate,
+        CAST(o.ShippedDate  AS DATE) AS ShippedDate,
 
         od.Quantity,
         od.UnitPrice,
@@ -51,6 +57,13 @@ USING (
         ON dp.product_id_nk = od.ProductID
         AND dp.is_current = 1
 
+    LEFT JOIN ' + QUOTENAME(@SchemaName) + N'.DimShippers ds
+        ON ds.shipper_id_nk = o.ShipVia
+        AND ds.is_deleted = 0
+
+    LEFT JOIN ' + QUOTENAME(@SchemaName) + N'.DimTerritories dt
+        ON dt.territory_id_nk = o.TerritoryID
+
     JOIN ' + QUOTENAME(@SchemaName) + N'.Dim_SOR sor_orders
         ON sor_orders.Staging_Table_Name = ''staging_raw_orders''
 
@@ -67,19 +80,25 @@ WHEN MATCHED THEN
 
 UPDATE SET
 
-    customer_sk = Source.customer_sk,
-    employee_sk = Source.employee_sk,
-    product_sk = Source.product_sk,
+    customer_sk   = Source.customer_sk,
+    employee_sk   = Source.employee_sk,
+    product_sk    = Source.product_sk,
+    shipper_sk    = Source.shipper_sk,
+    territory_sk  = Source.territory_sk,
 
-    quantity = Source.Quantity,
+    order_date    = Source.OrderDate,
+    required_date = Source.RequiredDate,
+    shipped_date  = Source.ShippedDate,
+
+    quantity   = Source.Quantity,
     unit_price = Source.UnitPrice,
-    discount = Source.Discount,
-    freight = Source.Freight,
+    discount   = Source.Discount,
+    freight    = Source.Freight,
 
-    sor_sk_orders = Source.sor_sk_orders,
+    sor_sk_orders        = Source.sor_sk_orders,
     staging_raw_id_orders = Source.staging_raw_id_orders,
 
-    sor_sk_details = Source.sor_sk_details,
+    sor_sk_details        = Source.sor_sk_details,
     staging_raw_id_details = Source.staging_raw_id_details
 
 WHEN NOT MATCHED THEN
@@ -92,6 +111,12 @@ INSERT (
     customer_sk,
     employee_sk,
     product_sk,
+    shipper_sk,
+    territory_sk,
+
+    order_date,
+    required_date,
+    shipped_date,
 
     quantity,
     unit_price,
@@ -116,6 +141,12 @@ VALUES (
     Source.customer_sk,
     Source.employee_sk,
     Source.product_sk,
+    Source.shipper_sk,
+    Source.territory_sk,
+
+    Source.OrderDate,
+    Source.RequiredDate,
+    Source.ShippedDate,
 
     Source.Quantity,
     Source.UnitPrice,
