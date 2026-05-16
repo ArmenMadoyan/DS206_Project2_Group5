@@ -1,0 +1,31 @@
+# SQL Server (Azure SQL Edge) for the ORDER_DDS pipeline.
+# Native arm64 on Apple Silicon, runs amd64 too. Brings up just the database.
+# Pipeline:
+#   python3 main.py --start_date=YYYY-MM-DD --end_date=YYYY-MM-DD
+#
+# Optional observability stack lives in docker-compose.graylog.yml; bring both up with:
+#   docker compose -f docker-compose.yml -f docker-compose.graylog.yml up -d
+#
+# Note: the cfg must use server=127.0.0.1 (not localhost) — macOS resolves
+# localhost to IPv6 first, but Docker only maps IPv4 → connection hangs.
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    container_name: order_dds
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "StrongPassword123!"
+    ports:
+      - "1433:1433"
+    volumes:
+      - order_dds_data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "</dev/tcp/127.0.0.1/1433 && exit 0 || exit 1"]
+      interval: 10s
+      retries: 6
+      start_period: 20s
+    restart: unless-stopped
+
+volumes:
+  order_dds_data:
