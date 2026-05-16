@@ -1,0 +1,69 @@
+2026-05-16 19:21:23,806 | EXECUTION_ID=22a300c6-72f0-44fd-8714-c89262209343 | INFO | dimensional_pipeline | pipeline.started
+2026-05-16 19:21:23,806 | EXECUTION_ID=22a300c6-72f0-44fd-8714-c89262209343 | INFO | dimensional_pipeline.pipeline_dimensional_data.tasks | task.started
+2026-05-16 19:21:23,897 | EXECUTION_ID=22a300c6-72f0-44fd-8714-c89262209343 | INFO | dimensional_pipeline.pipeline_dimensional_data.tasks | task.succeeded
+2026-05-16 19:21:23,897 | EXECUTION_ID=22a300c6-72f0-44fd-8714-c89262209343 | INFO | dimensional_pipeline.pipeline_dimensional_data.tasks | task.started
+2026-05-16 19:21:24,080 | EXECUTION_ID=22a300c6-72f0-44fd-8714-c89262209343 | ERROR | dimensional_pipeline.utils | staging.load.failed
+Traceback (most recent call last):
+  File "/Users/amadoyan/DS206_Project2_Group5/utils.py", line 161, in load_excel_to_staging
+    df = pd.read_excel(excel_path, sheet_name=sheet_name)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/amadoyan/DS206_Project2_Group5/venv/lib/python3.12/site-packages/pandas/io/excel/_base.py", line 495, in read_excel
+    io = ExcelFile(
+         ^^^^^^^^^^
+  File "/Users/amadoyan/DS206_Project2_Group5/venv/lib/python3.12/site-packages/pandas/io/excel/_base.py", line 1554, in __init__
+    raise ValueError(
+ValueError: Excel file format cannot be determined, you must specify an engine manually.
+2026-05-16 19:21:24,081 | EXECUTION_ID=22a300c6-72f0-44fd-8714-c89262209343 | ERROR | dimensional_pipeline.pipeline_dimensional_data.tasks | task.failed
+Traceback (most recent call last):
+  File "/Users/amadoyan/DS206_Project2_Group5/pipeline_dimensional_data/tasks.py", line 79, in load_staging_tables
+    load_excel_to_staging(conn, EXCEL_PATH, SHEET_TO_STAGING)
+  File "/Users/amadoyan/DS206_Project2_Group5/utils.py", line 161, in load_excel_to_staging
+    df = pd.read_excel(excel_path, sheet_name=sheet_name)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/amadoyan/DS206_Project2_Group5/venv/lib/python3.12/site-packages/pandas/io/excel/_base.py", line 495, in read_excel
+    io = ExcelFile(
+         ^^^^^^^^^^
+  File "/Users/amadoyan/DS206_Project2_Group5/venv/lib/python3.12/site-packages/pandas/io/excel/_base.py", line 1554, in __init__
+    raise ValueError(
+ValueError: Excel file format cannot be determined, you must specify an engine manually.
+2026-05-16 19:21:24,081 | EXECUTION_ID=22a300c6-72f0-44fd-8714-c89262209343 | ERROR | dimensional_pipeline | pipeline.aborted
+2026-05-16 19:21:51,569 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline | pipeline.started
+2026-05-16 19:21:51,569 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.pipeline_dimensional_data.tasks | task.started
+2026-05-16 19:21:51,641 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.pipeline_dimensional_data.tasks | task.succeeded
+2026-05-16 19:21:51,642 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.pipeline_dimensional_data.tasks | task.started
+2026-05-16 19:21:51,992 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.utils | staging.loaded
+2026-05-16 19:21:52,019 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.utils | staging.loaded
+2026-05-16 19:21:52,036 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.utils | staging.loaded
+2026-05-16 19:21:52,126 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.utils | staging.loaded
+2026-05-16 19:21:52,214 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.utils | staging.loaded
+2026-05-16 19:21:52,240 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.utils | staging.loaded
+2026-05-16 19:21:52,254 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.utils | staging.loaded
+2026-05-16 19:21:52,267 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.utils | staging.loaded
+2026-05-16 19:21:52,284 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.utils | staging.loaded
+2026-05-16 19:21:52,298 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.utils | staging.loaded
+2026-05-16 19:21:52,302 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.pipeline_dimensional_data.tasks | task.succeeded
+2026-05-16 19:21:52,302 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.pipeline_dimensional_data.tasks | task.started
+2026-05-16 19:21:52,318 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.utils | sql.file.executed
+2026-05-16 19:21:52,318 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.pipeline_dimensional_data.tasks | dim.loaded
+2026-05-16 19:21:52,320 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.utils | sql.file.executed
+2026-05-16 19:21:52,320 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.pipeline_dimensional_data.tasks | dim.loaded
+2026-05-16 19:21:52,344 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.utils | sql.file.executed
+2026-05-16 19:21:52,344 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.pipeline_dimensional_data.tasks | dim.loaded
+2026-05-16 19:21:52,346 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.utils | sql.file.executed
+2026-05-16 19:21:52,346 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.pipeline_dimensional_data.tasks | dim.loaded
+2026-05-16 19:21:52,354 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.utils | sql.file.executed
+2026-05-16 19:21:52,354 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.pipeline_dimensional_data.tasks | dim.loaded
+2026-05-16 19:21:52,355 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.utils | sql.file.executed
+2026-05-16 19:21:52,355 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.pipeline_dimensional_data.tasks | dim.loaded
+2026-05-16 19:21:52,358 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.utils | sql.file.executed
+2026-05-16 19:21:52,358 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.pipeline_dimensional_data.tasks | dim.loaded
+2026-05-16 19:21:52,361 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.utils | sql.file.executed
+2026-05-16 19:21:52,361 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.pipeline_dimensional_data.tasks | dim.loaded
+2026-05-16 19:21:52,361 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.pipeline_dimensional_data.tasks | task.succeeded
+2026-05-16 19:21:52,361 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.pipeline_dimensional_data.tasks | task.started
+2026-05-16 19:21:52,434 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.utils | sql.file.executed
+2026-05-16 19:21:52,434 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.pipeline_dimensional_data.tasks | task.succeeded
+2026-05-16 19:21:52,434 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.pipeline_dimensional_data.tasks | task.started
+2026-05-16 19:21:52,472 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.utils | sql.file.executed
+2026-05-16 19:21:52,472 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline.pipeline_dimensional_data.tasks | task.succeeded
+2026-05-16 19:21:52,472 | EXECUTION_ID=443e4f66-6172-4590-a96e-fe9a59375c87 | INFO | dimensional_pipeline | pipeline.succeeded

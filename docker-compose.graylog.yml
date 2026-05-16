@@ -1,0 +1,61 @@
+# OPT-IN OBSERVABILITY STACK
+#
+# Brings up MongoDB (Graylog config), OpenSearch (log storage), and Graylog itself.
+# Pipeline forwards logs over GELF UDP only when GRAYLOG_HOST env var is set,
+# so this stack stays opt-in.
+#
+# Bring up:
+#   docker compose -f docker-compose.yml -f docker-compose.graylog.yml up -d
+# Then run the pipeline with forwarding enabled:
+#   GRAYLOG_HOST=localhost python3 main.py --start_date=1996-01-01 --end_date=1998-12-31
+#
+# Default credentials baked in below: admin / admin123.
+# These are FINE for coursework but ROTATE before exposing port 9000 outside the group.
+
+services:
+  mongodb:
+    image: mongo:6.0
+    container_name: graylog_mongo
+    volumes:
+      - graylog_mongo_data:/data/db
+    restart: unless-stopped
+
+  opensearch:
+    image: opensearchproject/opensearch:2.15.0
+    container_name: graylog_opensearch
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+      - DISABLE_INSTALL_DEMO_CONFIG=true
+      - DISABLE_SECURITY_PLUGIN=true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - graylog_os_data:/usr/share/opensearch/data
+    restart: unless-stopped
+
+  graylog:
+    image: graylog/graylog:6.0
+    container_name: graylog
+    environment:
+      # 16+ char pepper for Graylog's internal token hashing. Coursework default; rotate for prod.
+      GRAYLOG_PASSWORD_SECRET: "somepasswordpepper16chars"
+      # sha256('admin123') — login at http://127.0.0.1:9000 as admin / admin123
+      GRAYLOG_ROOT_PASSWORD_SHA2: "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9"
+      GRAYLOG_HTTP_EXTERNAL_URI: "http://127.0.0.1:9000/"
+      GRAYLOG_ELASTICSEARCH_HOSTS: "http://opensearch:9200"
+      GRAYLOG_MONGODB_URI: "mongodb://mongodb:27017/graylog"
+    depends_on:
+      - mongodb
+      - opensearch
+    ports:
+      - "9000:9000"           # web UI
+      - "12201:12201/udp"     # GELF UDP input — pipeline ships here when GRAYLOG_HOST is set
+    restart: unless-stopped
+
+volumes:
+  graylog_mongo_data:
+  graylog_os_data:

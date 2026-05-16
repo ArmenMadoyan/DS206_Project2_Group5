@@ -1,0 +1,9 @@
+venv/
+__pycache__/
+.pytest_cache/
+.idea/
+.vscode/
+.DS_Store
+*.pyc
+logs/*.txt
+sql_server_config.cfg
